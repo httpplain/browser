@@ -305,7 +305,7 @@ def check_proxy_http(proxy):
     
     try:
         url = 'http://httpbin.org/get' 
-        r = requests.get(url, proxies=proxy_dict, timeout=15)
+        r = requests.get(url, proxies=proxy_dict, timeout=20)
         if r.status_code == 200:
             with output_lock:
                 time_rn = get_time_rn()
