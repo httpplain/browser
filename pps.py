@@ -68,14 +68,14 @@ def get_time_rn():
 
 def update_title():
     global https_scraped, socks4_scraped, socks5_scraped
-    print(f'[ LunusBPS ] By H4cK3dR4Du & 452b | HTTP/s Scraped : {https_scraped} ~ Socks4 Scraped : {socks4_scraped} ~ Socks5 Scraped : {socks5_scraped}')
+    print(f'[ ProxyForHire ] By PowShield | HTTP/s Scraped : {https_scraped} ~ Socks4 Scraped : {socks4_scraped} ~ Socks5 Scraped : {socks5_scraped}')
 
 def update_title2():
     global https_scraped, socks4_scraped, socks5_scraped
-    print(f'[ LunusBPS ] By H4cK3dR4Du & 452b | HTTP/s Valid : {http_checked} ~ Socks4 Valid : {socks4_checked} ~ Socks5 Valid : {socks5_checked}')
+    print(f'[ ProxyForHire ] By PowShield | HTTP/s Valid : {http_checked} ~ Socks4 Valid : {socks4_checked} ~ Socks5 Valid : {socks5_checked}')
 
 def ui():
-    print("[ LunusBPS ] By H4cK3dR4Du & 452b | Y'all love H4cK3dR4Du's and 452b's feds ❤️")
+    print("[ ProxyForHire ] By PowShield <\> ")
     System.Clear()
     Write.Print(f"""
 \t\t888                                              888888b.   8888888b.   .d8888b.  
@@ -130,7 +130,9 @@ http_links = [
 "https://raw.githubusercontent.com/sunny9577/proxy-scraper/master/proxies.txt",
 "https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/proxy.txt",
 "https://proxyspace.pro/http.txt",
-"https://api.openproxylist.xyz/http.txt"
+"https://api.openproxylist.xyz/http.txt",
+"https://proxy1.bf/proxy.txt",
+"https://raw.githubusercontent.com/httpplain/z/main/http.txt"
 ]
 
 
@@ -279,7 +281,7 @@ def scrape_proxy_links_https(link):
 
 proxies = []
 
-num_threads = 1
+num_threads = 4
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
 
     results = executor.map(scrape_proxy_links_https, http_links)
@@ -332,7 +334,7 @@ def scrape_proxy_links_socks4(link):
 
 proxies = []
 
-num_threads = 1
+num_threads = 4
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
 
     results = executor.map(scrape_proxy_links_socks4, socks4_list)
@@ -385,7 +387,7 @@ def scrape_proxy_links_socks5(link):
 
 proxies = []
 
-num_threads = 1
+num_threads = 4
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
 
     results = executor.map(scrape_proxy_links_socks5, socks5_list)
@@ -468,7 +470,7 @@ def check_proxy_http(proxy):
 
         url = 'http://httpbin.org/get' 
 
-        r = requests.get(url, proxies=proxy_dict, timeout=10)
+        r = requests.get(url, proxies=proxy_dict, timeout=15)
 
         if r.status_code == 200:
 
@@ -508,7 +510,7 @@ def checker_proxy_socks4(proxy):
 
         socket.socket = socks.socksocket
 
-        socket.create_connection(("www.google.com", 443), timeout=5)
+        socket.create_connection(("www.google.com", 443), timeout=15)
 
         socks4_checked += 1
 
