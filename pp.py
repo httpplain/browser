@@ -124,12 +124,12 @@ http_links = [
 
 
 socks4_list = [
-    "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks4",
+    "",
 ]
 
 socks5_list = [
-    "https://raw.githubusercontent.com/B4RC0DE-TM/proxy-list/main/SOCKS5.txt",
-    "https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks5.txt"
+    "",
+    ""
 ]
 
 def scrape_proxy_links_https(link):
