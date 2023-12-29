@@ -124,12 +124,11 @@ http_links = [
 
 
 socks4_list = [
-    "",
+    "https://raw.githubusercontent.com/httpplain/browser/main/test.txt",
 ]
 
 socks5_list = [
-    "",
-    ""
+    "https://raw.githubusercontent.com/httpplain/browser/main/test.txt",
 ]
 
 def scrape_proxy_links_https(link):
