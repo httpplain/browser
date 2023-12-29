@@ -125,7 +125,6 @@ http_links = [
 
 socks4_list = [
     "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks4",
-    "https://www.proxyscan.io/download?type=socks4,"
 ]
 
 socks5_list = [
