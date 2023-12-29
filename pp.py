@@ -174,7 +174,7 @@ def scrape_proxy_links_socks4(link):
     return []
 
 proxies = []
-num_threads = 1
+num_threads = 100
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     results = executor.map(scrape_proxy_links_socks4, socks4_list)
     for result in results:
@@ -201,7 +201,7 @@ def scrape_proxy_links_socks5(link):
     return []
 
 proxies = []
-num_threads = 1
+num_threads = 100
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     results = executor.map(scrape_proxy_links_socks5, socks5_list)
     for result in results:
