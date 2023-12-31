@@ -13,9 +13,7 @@ import datetime
 import aiosocks
 import asyncio
 import aiohttp_socks
-import socks
 import socket
-
 from pystyle import Write, System, Colors, Colorate, Anime
 from colorama import Fore, Style
 from datetime import datetime
