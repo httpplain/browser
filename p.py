@@ -120,7 +120,7 @@ http_links = [
 ]
 
 
-
+socks4_list = [
 "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks4",
 "https://api.proxyscrape.com/?request=displayproxies&proxytype=socks4&country=all",
 "https://api.openproxylist.xyz/socks4.txt",
@@ -144,7 +144,7 @@ http_links = [
 "https://raw.githubusercontent.com/Zaeem20/FREE_PROXIES_LIST/master/socks4.txt",
 "https://raw.githubusercontent.com/prxchk/proxy-list/main/socks4.txt",
 "https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks4.txt",
-"https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks4.txt",
+"https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks4.txt"
 ]
 
 
@@ -173,7 +173,7 @@ socks5_list = [
 "https://raw.githubusercontent.com/prxchk/proxy-list/main/socks5.txt",
 "https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks5.txt",
 "https://spys.me/socks.txt",
-"https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks5.txt",
+"https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks5.txt"
 ]
 
 
