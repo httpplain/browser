@@ -75,10 +75,9 @@ def ui():
 \t\t\t\t\t[ The Best Ever Not Gonna Lie ]
 """, Colors.red_to_blue, interval=0.000)
     time.sleep(3)
-
 ui()
-http_links = [
 
+http_links = [
 "https://raw.githubusercontent.com/roosterkid/openproxylist/main/HTTPS_RAW.txt",
 "https://raw.githubusercontent.com/yemixzy/proxy-list/main/proxies/http.txt",
 "https://raw.githubusercontent.com/officialputuid/KangProxy/KangProxy/http/https.txt",
