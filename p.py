@@ -121,13 +121,61 @@ http_links = [
 
 
 
-socks4_list = [
-    "https://raw.githubusercontent.com/httpplain/browser/main/test.txt",
+"https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks4",
+"https://api.proxyscrape.com/?request=displayproxies&proxytype=socks4&country=all",
+"https://api.openproxylist.xyz/socks4.txt",
+"https://proxyspace.pro/socks4.txt",
+"https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks4.txt",
+"https://raw.githubusercontent.com/monosans/proxy-list/main/proxies_anonymous/socks4.txt",
+"https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-socks4.txt",
+"https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks4.txt",
+"https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks4.txt",
+"https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS4_RAW.txt",
+"https://proxyspace.pro/socks4.txt",
+"https://www.proxy-list.download/api/v1/get?type=socks4",
+"https://raw.githubusercontent.com/HyperBeats/proxy-list/main/socks4.txt",
+"https://raw.githubusercontent.com/mmpx12/proxy-list/master/socks4.txt",
+"https://raw.githubusercontent.com/saschazesiger/Free-Proxies/master/proxies/socks4.txt",
+"https://raw.githubusercontent.com/B4RC0DE-TM/proxy-list/main/SOCKS4.txt",
+"https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies/socks4.txt",
+"https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies_anonymous/socks4.txt",
+"https://raw.githubusercontent.com/zevtyardt/proxy-list/main/socks4.txt",
+"https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/socks4.txt",
+"https://raw.githubusercontent.com/Zaeem20/FREE_PROXIES_LIST/master/socks4.txt",
+"https://raw.githubusercontent.com/prxchk/proxy-list/main/socks4.txt",
+"https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks4.txt",
+"https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks4.txt",
 ]
 
+
 socks5_list = [
-    "https://raw.githubusercontent.com/httpplain/browser/main/test.txt",
+"https://raw.githubusercontent.com/B4RC0DE-TM/proxy-list/main/SOCKS5.txt",
+"https://raw.githubusercontent.com/saschazesiger/Free-Proxies/master/proxies/socks5.txt",
+"https://raw.githubusercontent.com/mmpx12/proxy-list/master/socks5.txt",
+"https://raw.githubusercontent.com/HyperBeats/proxy-list/main/socks5.txt",
+"https://api.openproxylist.xyz/socks5.txt",
+"https://api.proxyscrape.com/?request=displayproxies&proxytype=socks5",
+"https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks5",
+"https://proxyspace.pro/socks5.txt",
+"https://raw.githubusercontent.com/manuGMG/proxy-365/main/SOCKS5.txt",
+"https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt",
+"https://raw.githubusercontent.com/monosans/proxy-list/main/proxies_anonymous/socks5.txt",
+"https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks5.txt",
+"https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-socks5.txt",
+"https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS5_RAW.txt",
+"https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt",
+"https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt",
+"https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies/socks5.txt",
+"https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies_anonymous/socks5.txt",
+"https://raw.githubusercontent.com/zevtyardt/proxy-list/main/socks5.txt",
+"https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/socks5.txt",
+"https://raw.githubusercontent.com/Zaeem20/FREE_PROXIES_LIST/master/socks5.txt",
+"https://raw.githubusercontent.com/prxchk/proxy-list/main/socks5.txt",
+"https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks5.txt",
+"https://spys.me/socks.txt",
+"https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks5.txt",
 ]
+
 
 def scrape_proxy_links_https(link):
     global https_scraped
@@ -145,7 +193,7 @@ def scrape_proxy_links_https(link):
     return []
 
 proxies = []
-num_threads = 200
+num_threads = 100
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     results = executor.map(scrape_proxy_links_https, http_links)
     for result in results:
@@ -172,7 +220,7 @@ def scrape_proxy_links_socks4(link):
     return []
 
 proxies = []
-num_threads = 1
+num_threads = 100
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     results = executor.map(scrape_proxy_links_socks4, socks4_list)
     for result in results:
@@ -199,7 +247,7 @@ def scrape_proxy_links_socks5(link):
     return []
 
 proxies = []
-num_threads = 1
+num_threads = 100
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     results = executor.map(scrape_proxy_links_socks5, socks5_list)
     for result in results:
@@ -261,7 +309,7 @@ def checker_proxy_socks4(proxy):
     try:
         socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxy.split(':')[0], int(proxy.split(':')[1]))
         socket.socket = socks.socksocket
-        socket.create_connection(("www.google.com", 443), timeout=15)
+        socket.create_connection(("www.google.com", 443), timeout=5)
         socks4_checked += 1
         update_title2()
         with output_lock:
@@ -279,7 +327,7 @@ def checker_proxy_socks5(proxy):
     try:
         socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxy.split(':')[0], int(proxy.split(':')[1]))
         socket.socket = socks.socksocket
-        socket.create_connection(("www.google.com", 443), timeout=15)
+        socket.create_connection(("www.google.com", 443), timeout=5)
         socks5_checked += 1
         update_title2()
         with output_lock:
