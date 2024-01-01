@@ -240,7 +240,7 @@ def check_proxy_http(proxy):
     }
     
     try:
-        url = 'http://httpbin.org/get' 
+        url = 'http://www.google.com' 
         r = requests.get(url, proxies=proxy_dict, timeout=5)
         if r.status_code == 200:
             with output_lock:
