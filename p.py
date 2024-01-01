@@ -172,7 +172,7 @@ def scrape_proxy_links_socks4(link):
     return []
 
 proxies = []
-num_threads = 100
+num_threads = 1
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     results = executor.map(scrape_proxy_links_socks4, socks4_list)
     for result in results:
@@ -199,7 +199,7 @@ def scrape_proxy_links_socks5(link):
     return []
 
 proxies = []
-num_threads = 100
+num_threads = 1
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     results = executor.map(scrape_proxy_links_socks5, socks5_list)
     for result in results:
@@ -240,7 +240,7 @@ def check_proxy_http(proxy):
     }
     
     try:
-        url = 'https://httpbin.org/get' 
+        url = 'http://httpbin.org/get' 
         r = requests.get(url, proxies=proxy_dict, timeout=5)
         if r.status_code == 200:
             with output_lock:
