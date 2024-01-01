@@ -1,19 +1,19 @@
-import os
-import concurrent.futures
-import time
-import threading
-import random
-import string
-import json
-import sys
-import requests
-import colorama
-import pystyle
-import datetime
-import aiosocks
-import asyncio
-import aiohttp_socks
-import socket
+import os, concurrent.futures, time, threading, random, string, json, ctypes, sys
+
+try:
+    import requests, colorama, pystyle, datetime, aiosocks, asyncio, aiohttp_socks, socks, socket, tls_client
+except ModuleNotFoundError:
+    os.system("pip install requests")
+    os.system("pip install colorama")
+    os.system("pip install pystyle")
+    os.system("pip install datetime")
+    os.system("pip install aiosocks")
+    os.system("pip install asyncio")
+    os.system("pip install aiohttp-socks")
+    os.system("pip install socks")
+    os.system("pip install socket")
+    os.system("pip install tls_client")
+
 from pystyle import Write, System, Colors, Colorate, Anime
 from colorama import Fore, Style
 from datetime import datetime
