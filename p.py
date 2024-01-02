@@ -82,7 +82,7 @@ http_links = [
 ]
 
 
-socks4_links = [
+socks4_list = [
 "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks4",
 "https://api.proxyscrape.com/?request=displayproxies&proxytype=socks4&country=all",
 "https://api.openproxylist.xyz/socks4.txt",
@@ -110,7 +110,7 @@ socks4_links = [
 ]
 
 
-socks5_links = [
+socks5_list = [
 "https://raw.githubusercontent.com/B4RC0DE-TM/proxy-list/main/SOCKS5.txt",
 "https://raw.githubusercontent.com/saschazesiger/Free-Proxies/master/proxies/socks5.txt",
 "https://raw.githubusercontent.com/mmpx12/proxy-list/master/socks5.txt",
@@ -155,7 +155,7 @@ def scrape_proxy_links_https(link):
     return []
 
 proxies = []
-num_threads = 100
+num_threads = 1
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     results = executor.map(scrape_proxy_links_https, http_links)
     for result in results:
