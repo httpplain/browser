@@ -78,11 +78,11 @@ def ui():
 ui()
 
 http_links = [
-"https://raw.githubusercontent.com/httpplain/browser/main/test.txt"
+"https://raw.githubusercontent.com/httpplain/browser/main/test.txt",
 ]
 
 
-socks4_list = [
+socks4_links = [
 "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks4",
 "https://api.proxyscrape.com/?request=displayproxies&proxytype=socks4&country=all",
 "https://api.openproxylist.xyz/socks4.txt",
@@ -106,11 +106,11 @@ socks4_list = [
 "https://raw.githubusercontent.com/Zaeem20/FREE_PROXIES_LIST/master/socks4.txt",
 "https://raw.githubusercontent.com/prxchk/proxy-list/main/socks4.txt",
 "https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks4.txt",
-"https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks4.txt"
+"https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks4.txt",
 ]
 
 
-socks5_list = [
+socks5_links = [
 "https://raw.githubusercontent.com/B4RC0DE-TM/proxy-list/main/SOCKS5.txt",
 "https://raw.githubusercontent.com/saschazesiger/Free-Proxies/master/proxies/socks5.txt",
 "https://raw.githubusercontent.com/mmpx12/proxy-list/master/socks5.txt",
@@ -135,7 +135,7 @@ socks5_list = [
 "https://raw.githubusercontent.com/prxchk/proxy-list/main/socks5.txt",
 "https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks5.txt",
 "https://spys.me/socks.txt",
-"https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks5.txt"
+"https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks5.txt",
 ]
 
 
