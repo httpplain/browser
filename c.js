@@ -128,3 +128,6 @@ function start_flood(args, proxy, ua) {
 }
 
 start(args);
+
+setTimeout(()=>clearInterval(intv),time*1000)
+})
