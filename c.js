@@ -127,7 +127,16 @@ function start_flood(args, proxy, ua) {
   }
 }
 
-start(args);
+setTimeout(() => {
+    process.exit(4);
+}, (arguments.time * 1000));
 
-setTimeout(()=>clearInterval(intv),time*1000)
-})
+process.on('uncaughtException', function(e) {
+    console.warn(e);
+}).on('unhandledRejection', function(e) {
+    console.warn(e);
+}).on('warning', e => {
+    console.warn(e);
+}).setMaxListeners(0);
+
+start(args);
