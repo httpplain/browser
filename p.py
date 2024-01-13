@@ -85,13 +85,13 @@ http_links = [
 "https://raw.githubusercontent.com/officialputuid/KangProxy/KangProxy/http/http.txt",
 "https://raw.githubusercontent.com/elliottophellia/yakumo/master/results/http/global/http_checked.txt",
 "https://raw.githubusercontent.com/ErcinDedeoglu/proxies/main/proxies/http.txt",
-"https://raw.githubusercontent.com/mallisc5/master/proxy-list-raw.txt",
+"https://raw.githubusercontent.com/httpplain/browser/main/cn.txt",
 "https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/http.txt",
 "https://raw.githubusercontent.com/prxchk/proxy-list/main/http.txt",
 "https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt",
 "https://raw.githubusercontent.com/saisuiu/Lionkings-Http-Proxys-Proxies/main/free.txt",
 "https://raw.githubusercontent.com/HyperBeats/proxy-list/main/https.txt",
-"https://raw.githubusercontent.com/UptimerBot/proxy-list/main/proxies/http.txt",
+"https://raw.githubusercontent.com/httpplain/browser/main/list.txt",
 "https://raw.githubusercontent.com/caliphdev/Proxy-List/master/http.txt",
 "https://raw.githubusercontent.com/proxylist-to/proxy-list/main/http.txt",
 "https://raw.githubusercontent.com/zloi-user/hideip.me/main/https.txt",
@@ -116,10 +116,8 @@ http_links = [
 "https://proxyspace.pro/http.txt",
 "https://api.openproxylist.xyz/http.txt",
 "https://proxy1.bf/proxy.txt",
-"https://raw.githubusercontent.com/httpplain/z/main/http.txt",
-"https://raw.githubusercontent.com/httpplain/browser/main/list.txt",
-"https://raw.githubusercontent.com/httpplain/browser/main/cn.txt"
 ]
+
 
 
 socks4_list = [
@@ -128,30 +126,6 @@ socks4_list = [
 
 
 socks5_list = [
-"https://raw.githubusercontent.com/B4RC0DE-TM/proxy-list/main/SOCKS5.txt",
-"https://raw.githubusercontent.com/saschazesiger/Free-Proxies/master/proxies/socks5.txt",
-"https://raw.githubusercontent.com/mmpx12/proxy-list/master/socks5.txt",
-"https://raw.githubusercontent.com/HyperBeats/proxy-list/main/socks5.txt",
-"https://api.openproxylist.xyz/socks5.txt",
-"https://api.proxyscrape.com/?request=displayproxies&proxytype=socks5",
-"https://api.proxyscrape.com/v2/?request=displayproxies&protocol=socks5",
-"https://proxyspace.pro/socks5.txt",
-"https://raw.githubusercontent.com/manuGMG/proxy-365/main/SOCKS5.txt",
-"https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt",
-"https://raw.githubusercontent.com/monosans/proxy-list/main/proxies_anonymous/socks5.txt",
-"https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks5.txt",
-"https://raw.githubusercontent.com/jetkai/proxy-list/main/online-proxies/txt/proxies-socks5.txt",
-"https://raw.githubusercontent.com/roosterkid/openproxylist/main/SOCKS5_RAW.txt",
-"https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt",
-"https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt",
-"https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies/socks5.txt",
-"https://raw.githubusercontent.com/rdavydov/proxy-list/main/proxies_anonymous/socks5.txt",
-"https://raw.githubusercontent.com/zevtyardt/proxy-list/main/socks5.txt",
-"https://raw.githubusercontent.com/MuRongPIG/Proxy-Master/main/socks5.txt",
-"https://raw.githubusercontent.com/Zaeem20/FREE_PROXIES_LIST/master/socks5.txt",
-"https://raw.githubusercontent.com/prxchk/proxy-list/main/socks5.txt",
-"https://raw.githubusercontent.com/ALIILAPRO/Proxy/main/socks5.txt",
-"https://spys.me/socks.txt",
 "https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks5.txt",
 ]
 
@@ -226,7 +200,7 @@ def scrape_proxy_links_socks5(link):
     return []
 
 proxies = []
-num_threads = 100
+num_threads = 1
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     results = executor.map(scrape_proxy_links_socks5, socks5_list)
     for result in results:
