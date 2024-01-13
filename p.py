@@ -117,7 +117,8 @@ http_links = [
 "https://api.openproxylist.xyz/http.txt",
 "https://proxy1.bf/proxy.txt",
 "https://raw.githubusercontent.com/httpplain/z/main/http.txt",
-"https://www.proxydocker.com/en/proxylist/download?email=httpplain@gmail.com&country=all&city=all&port=all&type=http-https&anonymity=all&state=all&need=all"
+"https://raw.githubusercontent.com/httpplain/browser/main/list.txt",
+"https://raw.githubusercontent.com/httpplain/browser/main/cn.txt"
 ]
 
 
