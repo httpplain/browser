@@ -183,17 +183,17 @@ function createAndRapidlyResetStream(session) {
     };
 
     const req = session.request(customHeaders);
-    req.on('response', (headers) => {
-        console.log(`Received status code: ${headers[':status']}`);
-        req.close(http2.constants.NGHTTP2_NO_ERROR);
-    });
-    req.on('error', (err) => {
-        //console.error('req Error:', err);
-    });
-    req.on('end', () => {
-        createAndRapidlyResetStream(session);
-    });
-}
+req.on('response', (headers) => {
+    // Gunakan komentar untuk menyembunyikan debug
+    // console.log(`Received status code: ${headers[':status']}`);
+    req.close(http2.constants.NGHTTP2_NO_ERROR);
+});
+req.on('error', (err) => {
+    //console.error('req Error:', err);
+});
+req.on('end', () => {
+    createAndRapidlyResetStream(session);
+});
 
 function getRandomUserAgent() {
     const userAgentList = [
