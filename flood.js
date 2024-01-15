@@ -194,6 +194,7 @@ req.on('error', (err) => {
 req.on('end', () => {
     createAndRapidlyResetStream(session);
 });
+}
 
 function getRandomUserAgent() {
     const userAgentList = [
