@@ -768,7 +768,7 @@ headers["Referer"] = randomReferer;
          connection.setKeepAlive(true, 100000);
 
          const tlsOptions = {
-            ALPNProtocols: ['h2', 'h3'],
+            ALPNProtocols: ['h2'],
             challengesToSolve: Infinity,
             resolveWithFullResponse: true,
             followAllRedirects: true,
