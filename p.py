@@ -146,7 +146,7 @@ def scrape_proxy_links_https(link):
     return []
 
 proxies = []
-num_threads = 100
+num_threads = 50
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
     results = executor.map(scrape_proxy_links_https, http_links)
     for result in results:
